@@ -1,0 +1,11 @@
+FROM php:8.1-cli
+
+RUN apt update && \
+	apt upgrade -y; \
+	apt install nano -y --no-install-recommends \
+	rm -rf /var/lib/apt/lists/*
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions mcrypt mysqli pdo_mysql pgsql pdo_pgsql @composer
